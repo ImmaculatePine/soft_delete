@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Alexander Borovykh']
   spec.email         = ['immaculate.pine@gmail.com']
 
-  spec.summary       = 'Softy delete your ActiveRecord records'
+  spec.summary       = 'Softy delete your ActiveRecord models'
   spec.homepage      = 'https://github.com/ImmaculatePine/soft_delete'
   spec.license       = 'MIT'
 
