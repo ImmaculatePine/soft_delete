@@ -1,8 +1,6 @@
 # SoftDelete
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/soft_delete`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem allows you to softly delete your ActiveRecord models.
 
 ## Installation
 
@@ -16,13 +14,35 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install soft_delete
-
 ## Usage
 
-TODO: Write usage instructions here
+Include `SoftDelete` module to your model:
+
+    class Post < ActiveRecord::Base
+      include SoftDelete
+      # ...
+    end
+
+Use `soft_delete` method instead of `destroy`:
+
+    if @post.soft_delete
+      redirect_to posts_url, notice: 'Deleted successfuly'
+    else
+      redirect_to posts_url, alert: 'Something went wrong'
+    end
+
+Use `with_deleted` scope to fetch all the records, including the deleted ones:
+
+    @posts = Post.with_deleted
+
+Use `deleted` scope to fetch only deleted records:
+
+    @posts = Post.deleted
+
+Use `restore` method to restore the deleted record:
+
+    @post = Post.deleted.find(params[:id])
+    @post.restore
 
 ## Development
 
@@ -32,7 +52,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/soft_delete. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/ImmaculatePine/soft_delete. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
 
 ## License
